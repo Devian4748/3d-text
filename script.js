@@ -18,7 +18,9 @@ const loadingManager = new THREE.LoadingManager(
   }
 );
 const textureLoader = new THREE.TextureLoader(loadingManager);
-const matcapType1Texture = textureLoader.load("/textures/matcaps/1.png");
+const matcapType1Texture = textureLoader.load(
+  new URL("/textures/matcaps/1.png", import.meta.url)
+);
 
 matcapType1Texture.colorSpace = THREE.SRGBColorSpace;
 
@@ -78,32 +80,35 @@ window.addEventListener("resize", () => {
   renderer.setSize(SIZES.width, SIZES.height);
 });
 
-fontLoader.load("/fonts/winky-sans-regular.json", (font) => {
-  const textGeometry = new TextGeometry("DEVIAN", {
-    font,
-    size: 0.5,
-    depth: 0.2,
-    curveSegments: 6,
-    bevelEnable: true,
-    bevelThickness: 0.03,
-    bevelSize: 0.02,
-    bevelOffset: 0,
-    bevelSegments: 4,
-  });
+fontLoader.load(
+  new URL("/fonts/winky-sans-regular.json", import.meta.url),
+  (font) => {
+    const textGeometry = new TextGeometry("DEVIAN", {
+      font,
+      size: 0.5,
+      depth: 0.2,
+      curveSegments: 6,
+      bevelEnable: true,
+      bevelThickness: 0.03,
+      bevelSize: 0.02,
+      bevelOffset: 0,
+      bevelSegments: 4,
+    });
 
-  //   textGeometry.computeBoundingBox();
-  //   textGeometry.translate(
-  //     -(textGeometry.boundingBox.max.x - 0.02) * 0.5,
-  //     -(textGeometry.boundingBox.max.y - 0.02) * 0.5,
-  //     -(textGeometry.boundingBox.max.z - 0.03) * 0.5
-  //   );
-  textGeometry.center();
+    //   textGeometry.computeBoundingBox();
+    //   textGeometry.translate(
+    //     -(textGeometry.boundingBox.max.x - 0.02) * 0.5,
+    //     -(textGeometry.boundingBox.max.y - 0.02) * 0.5,
+    //     -(textGeometry.boundingBox.max.z - 0.03) * 0.5
+    //   );
+    textGeometry.center();
 
-  const textMaterial = new THREE.MeshMatcapMaterial({
-    color: 0xffffff,
-    // wireframe: true,
-    matcap: matcapType1Texture,
-  });
-  const text = new THREE.Mesh(textGeometry, textMaterial);
-  scene.add(text);
-});
+    const textMaterial = new THREE.MeshMatcapMaterial({
+      color: 0xffffff,
+      // wireframe: true,
+      matcap: matcapType1Texture,
+    });
+    const text = new THREE.Mesh(textGeometry, textMaterial);
+    scene.add(text);
+  }
+);
