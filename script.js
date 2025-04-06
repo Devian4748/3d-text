@@ -3,6 +3,8 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 
+const BASE_URL = import.meta.url;
+
 const SIZES = {
   width: window.innerWidth,
   height: window.innerHeight,
@@ -18,7 +20,9 @@ const loadingManager = new THREE.LoadingManager(
   }
 );
 const textureLoader = new THREE.TextureLoader(loadingManager);
-const matcapType1Texture = textureLoader.load("/textures/matcaps/1.png");
+const matcapType1Texture = textureLoader.load(
+  `${BASE_URL}textures/matcaps/1.png`
+);
 
 matcapType1Texture.colorSpace = THREE.SRGBColorSpace;
 
@@ -78,7 +82,7 @@ window.addEventListener("resize", () => {
   renderer.setSize(SIZES.width, SIZES.height);
 });
 
-fontLoader.load("/fonts/winky-sans-regular.json", (font) => {
+fontLoader.load(`${BASE_URL}/fonts/winky-sans-regular.json`, (font) => {
   const textGeometry = new TextGeometry("DEVIAN", {
     font,
     size: 0.5,
