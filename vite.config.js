@@ -1,6 +1,7 @@
 /** @type {import('vite').UserConfig} */
 
-export default {
+import { defineConfig } from "vite";
+
+export default defineConfig({
   publicDir: "static",
-  base: "/3d-text/",
-};
+});
